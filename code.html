@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Code Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+    }
+    textarea, select {
+      width: 90%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    pre {
+      text-align: left;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Enhanced Code Generator</h1>
+    <label for="type">Choose Type of Code:</label>
+    <select id="type">
+      <option value="html">HTML</option>
+      <option value="css">CSS</option>
+      <option value="javascript">JavaScript</option>
+    </select>
+    <textarea id="description" placeholder="Describe the functionality (e.g., 'Create a button that logs Hello World')"></textarea>
+    <button id="generateCode">Generate Code</button>
+    <pre id="output">Your code will appear here...</pre>
+  </div>
+
+  <script>
+    // JavaScript logic for enhanced code generator
+    document.getElementById("generateCode").addEventListener("click", () => {
+      const type = document.getElementById("type").value;
+      const description = document.getElementById("description").value.toLowerCase();
+      const output = document.getElementById("output");
+
+      if (!description) {
+        output.textContent = "Please provide a description of the functionality.";
+        return;
+      }
+
+      let code = "";
+      let generated = false;
+
+      // HTML Code Generation
+      if (type === "html") {
+        if (description.includes("button")) {
+          code = `<button onclick="alert('Hello, World!')">Click Me!</button>`;
+          generated = true;
+        } else if (description.includes("form")) {
+          code = `<form action="/submit" method="post">\n  <label for="name">Name:</label>\n  <input type="text" id="name" name="name" required>\n  <button type="submit">Submit</button>\n</form>`;
+          generated = true;
+        } else if (description.includes("image")) {
+          code = `<img src="https://via.placeholder.com/150" alt="Sample Image">`;
+          generated = true;
+        }
+       if (description.includes("alert")) {
+  code = `alert("This is a custom alert message!");`;
+  generated = true;
+} else if (description.includes("button")) {
+  code = `<button onclick="alert('Button clicked!')">Click Me</button>`;
+  generated = true;
+} else if (description.includes("image")) {
+  code = `<img src="https://via.placeholder.com/150" alt="Sample Image">`;
+  generated = true;
+} else if (description.includes("link")) {
+  code = `<a href="https://example.com" target="_blank">Visit Example</a>`;
+  generated = true;
+} else if (description.includes("form")) {
+  code = `
+    <form action="/submit" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <button type="submit">Submit</button>
+    </form>`;
+  generated = true;
+} else if (description.includes("table")) {
+  code = `
+    <table border="1">
+      <tr>
+        <th>Header 1</th>
+        <th>Header 2</th>
+      </tr>
+      <tr>
+        <td>Row 1, Cell 1</td>
+        <td>Row 1, Cell 2</td>
+      </tr>
+    </table>`;
+  generated = true;
+} else if (description.includes("list")) {
+  code = `
+    <ul>
+      <li>List Item 1</li>
+      <li>List Item 2</li>
+      <li>List Item 3</li>
+    </ul>`;
+  generated = true;
+} else if (description.includes("paragraph")) {
+  code = `<p>This is a sample paragraph of text.</p>`;
+  generated = true;
+} else if (description.includes("heading")) {
+  code = `<h1>This is a Heading</h1>`;
+  generated = true;
+} else if (description.includes("input")) {
+  code = `<input type="text" placeholder="Enter text here">`;
+  generated = true;
+} else if (description.includes("checkbox")) {
+  code = `
+    <label>
+      <input type="checkbox" name="option" value="1"> Option 1
+    </label>
+    <label>
+      <input type="checkbox" name="option" value="2"> Option 2
+    </label>`;
+  generated = true;
+} else if (description.includes("radio")) {
+  code = `
+    <label>
+      <input type="radio" name="choice" value="1"> Choice 1
+    </label>
+    <label>
+      <input type="radio" name="choice" value="2"> Choice 2
+    </label>`;
+  generated = true;
+} else if (description.includes("dropdown")) {
+  code = `
+    <select>
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+    </select>`;
+  generated = true;
+} else if (description.includes("video")) {
+  code = `<video width="320" height="240" controls>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>`;
+  generated = true;
+} else if (description.includes("audio")) {
+  code = `<audio controls>
+    <source src="audio.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>`;
+  generated = true;
+} else if (description.includes("progress")) {
+  code = `<progress value="50" max="100"></progress>`;
+  generated = true;
+} else if (description.includes("meter")) {
+  code = `<meter value="0.7">70%</meter>`;
+  generated = true;
+} else if (description.includes("canvas")) {
+  code = `<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>`;
+  generated = true;
+} else if (description.includes("iframe")) {
+  code = `<iframe src="https://example.com" width="600" height="400"></iframe>`;
+  generated = true;
+} else if (description.includes("blockquote")) {
+  code = `<blockquote cite="https://example.com">
+    This is a blockquote from a source.
+  </blockquote>`;
+  generated = true;
+} else if (description.includes("code")) {
+  code = `<pre><code>console.log('This is a code snippet');</code></pre>`;
+  generated = true;
+} else if (description.includes("div")) {
+  code = `<div style="background-color:lightblue;padding:10px;">This is a div container</div>`;
+  generated = true;
+} else if (description.includes("span")) {
+  code = `<span style="color:blue;">This is inline text in a span</span>`;
+  generated = true;
+}
+      }
+
+      // CSS Code Generation
+      else if (type === "css") {
+        if (description.includes("center a div")) {
+          code = `div {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}`;
+          generated = true;
+        } else if (description.includes("button hover")) {
+          code = `button {\n  background-color: #007bff;\n  color: #fff;\n  border: none;\n  padding: 10px 20px;\n  cursor: pointer;\n}\n\nbutton:hover {\n  background-color: #0056b3;\n}`;
+          generated = true;
+        } else if (description.includes("responsive")) {
+          code = `@media (max-width: 600px) {\n  body {\n    background-color: #f4f4f9;\n  }\n}`;
+          generated = true;
+        }
+          if (description.includes("background color")) {
+  code = `body {
+    background-color: lightblue;
+  }`;
+  generated = true;
+} else if (description.includes("text color")) {
+  code = `p {
+    color: red;
+  }`;
+  generated = true;
+} else if (description.includes("font size")) {
+  code = `h1 {
+    font-size: 24px;
+  }`;
+  generated = true;
+} else if (description.includes("font family")) {
+  code = `body {
+    font-family: Arial, sans-serif;
+  }`;
+  generated = true;
+} else if (description.includes("margin")) {
+  code = `div {
+    margin: 20px;
+  }`;
+  generated = true;
+} else if (description.includes("padding")) {
+  code = `div {
+    padding: 15px;
+  }`;
+  generated = true;
+} else if (description.includes("border")) {
+  code = `div {
+    border: 2px solid black;
+  }`;
+  generated = true;
+} else if (description.includes("border radius")) {
+  code = `button {
+    border-radius: 10px;
+  }`;
+  generated = true;
+} else if (description.includes("box shadow")) {
+  code = `div {
+    box-shadow: 5px 5px 10px grey;
+  }`;
+  generated = true;
+} else if (description.includes("text shadow")) {
+  code = `h1 {
+    text-shadow: 2px 2px 5px grey;
+  }`;
+  generated = true;
+} else if (description.includes("hover effect")) {
+  code = `button:hover {
+    background-color: yellow;
+  }`;
+  generated = true;
+} else if (description.includes("display")) {
+  code = `div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }`;
+  generated = true;
+} else if (description.includes("position")) {
+  code = `div {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+  }`;
+  generated = true;
+} else if (description.includes("width and height")) {
+  code = `img {
+    width: 100px;
+    height: 100px;
+  }`;
+  generated = true;
+} else if (description.includes("z index")) {
+  code = `div {
+    position: absolute;
+    z-index: 10;
+  }`;
+  generated = true;
+} else if (description.includes("overflow")) {
+  code = `div {
+    overflow: hidden;
+  }`;
+  generated = true;
+} else if (description.includes("flexbox")) {
+  code = `div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }`;
+  generated = true;
+} else if (description.includes("grid")) {
+  code = `div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }`;
+  generated = true;
+} else if (description.includes("align text")) {
+  code = `p {
+    text-align: center;
+  }`;
+  generated = true;
+} else if (description.includes("line height")) {
+  code = `p {
+    line-height: 1.5;
+  }`;
+  generated = true;
+} else if (description.includes("letter spacing")) {
+  code = `p {
+    letter-spacing: 2px;
+  }`;
+  generated = true;
+} else if (description.includes("opacity")) {
+  code = `div {
+    opacity: 0.5;
+  }`;
+  generated = true;
+} else if (description.includes("transition")) {
+  code = `button {
+    transition: background-color 0.3s ease;
+  }`;
+  generated = true;
+} else if (description.includes("animation")) {
+  code = `
+    @keyframes example {
+      from {background-color: red;}
+      to {background-color: yellow;}
+    }
+    div {
+      animation: example 2s infinite;
+    }`;
+  generated = true;
+} else if (description.includes("gradient")) {
+  code = `div {
+    background: linear-gradient(to right, red, yellow);
+  }`;
+  generated = true;
+} else if (description.includes("cursor")) {
+  code = `button {
+    cursor: pointer;
+  }`;
+  generated = true;
+} else if (description.includes("float")) {
+  code = `img {
+    float: left;
+    margin-right: 10px;
+  }`;
+  generated = true;
+} else if (description.includes("clear")) {
+  code = `div {
+    clear: both;
+  }`;
+  generated = true;
+} else if (description.includes("list style")) {
+  code = `ul {
+    list-style: square inside;
+  }`;
+  generated = true;
+} else if (description.includes("max width")) {
+  code = `img {
+    max-width: 100%;
+  }`;
+  generated = true;
+} else if (description.includes("min height")) {
+  code = `div {
+    min-height: 300px;
+  }`;
+  generated = true;
+} 
+      }
+
+      // JavaScript Code Generation
+      else if (type === "javascript") {
+        if (description.includes("log hello world")) {
+          code = `console.log("Hello, World!");`;
+          generated = true;
+        } else if (description.includes("add two numbers")) {
+          code = `function addNumbers(a, b) {\n  return a + b;\n}\n\nconsole.log(addNumbers(5, 10)); // Outputs 15`;
+          generated = true;
+        } else if (description.includes("alert")) {
+          code = `alert("This is a custom alert message!");`;
+          generated = true;
+        }
+          if (description.includes("alert")) {
+  code = `alert("This is an alert box!");`;
+  generated = true;
+} else if (description.includes("console log")) {
+  code = `console.log("This is a console log message!");`;
+  generated = true;
+} else if (description.includes("variable")) {
+  code = `
+    let myVariable = "Hello, world!";
+    console.log(myVariable);
+  `;
+  generated = true;
+} else if (description.includes("function")) {
+  code = `
+    function greet(name) {
+      return "Hello, " + name + "!";
+    }
+    console.log(greet("Alice"));
+  `;
+  generated = true;
+} else if (description.includes("if else")) {
+  code = `
+    let num = 10;
+    if (num > 5) {
+      console.log("Number is greater than 5");
+    } else {
+      console.log("Number is 5 or less");
+    }
+  `;
+  generated = true;
+} else if (description.includes("for loop")) {
+  code = `
+    for (let i = 0; i < 5; i++) {
+      console.log("Iteration:", i);
+    }
+  `;
+  generated = true;
+} else if (description.includes("while loop")) {
+  code = `
+    let i = 0;
+    while (i < 5) {
+      console.log("Iteration:", i);
+      i++;
+    }
+  `;
+  generated = true;
+} else if (description.includes("array")) {
+  code = `
+    let fruits = ["Apple", "Banana", "Cherry"];
+    console.log(fruits[0]); // Access first element
+    fruits.push("Durian"); // Add new element
+    console.log(fruits);
+  `;
+  generated = true;
+} else if (description.includes("object")) {
+  code = `
+    let person = {
+      name: "Alice",
+      age: 25,
+      greet: function() {
+        console.log("Hello, " + this.name);
+      }
+    };
+    person.greet();
+  `;
+  generated = true;
+} else if (description.includes("event listener")) {
+  code = `
+    document.getElementById("myButton").addEventListener("click", function() {
+      alert("Button clicked!");
+    });
+  `;
+  generated = true;
+} else if (description.includes("DOM manipulation")) {
+  code = `
+    let element = document.getElementById("myDiv");
+    element.style.backgroundColor = "lightblue";
+    element.innerText = "Content updated!";
+  `;
+  generated = true;
+} else if (description.includes("set timeout")) {
+  code = `
+    setTimeout(function() {
+      console.log("This message appears after 2 seconds");
+    }, 2000);
+  `;
+  generated = true;
+} else if (description.includes("set interval")) {
+  code = `
+    let count = 0;
+    let interval = setInterval(function() {
+      count++;
+      console.log("Count:", count);
+      if (count === 5) {
+        clearInterval(interval); // Stop after 5 iterations
+      }
+    }, 1000);
+  `;
+  generated = true;
+} else if (description.includes("fetch API")) {
+  code = `
+    fetch("https://api.example.com/data")
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error("Error:", error));
+  `;
+  generated = true;
+} else if (description.includes("promise")) {
+  code = `
+    let myPromise = new Promise((resolve, reject) => {
+      setTimeout(() => resolve("Promise resolved!"), 1000);
+    });
+    myPromise.then(value => console.log(value));
+  `;
+  generated = true;
+} else if (description.includes("async await")) {
+  code = `
+    async function fetchData() {
+      try {
+        let response = await fetch("https://api.example.com/data");
+        let data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    fetchData();
+  `;
+  generated = true;
+} else if (description.includes("class")) {
+  code = `
+    class Person {
+      constructor(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      greet() {
+        console.log("Hello, " + this.name);
+      }
+    }
+    let person = new Person("Alice", 25);
+    person.greet();
+  `;
+  generated = true;
+} else if (description.includes("math")) {
+  code = `
+    let random = Math.random(); // Random number between 0 and 1
+    let rounded = Math.round(4.7); // Round to nearest integer
+    console.log("Random:", random, "Rounded:", rounded);
+  `;
+  generated = true;
+} else if (description.includes("date")) {
+  code = `
+    let now = new Date();
+    console.log("Current Date and Time:", now.toString());
+  `;
+  generated = true;
+} else if (description.includes("local storage")) {
+  code = `
+    localStorage.setItem("key", "value");
+    let value = localStorage.getItem("key");
+    console.log("Stored value:", value);
+  `;
+  generated = true;
+} else if (description.includes("regex")) {
+  code = `
+    let text = "The rain in Spain";
+    let regex = /rain/;
+    console.log("Match found:", regex.test(text));
+  `;
+  generated = true;
+} else if (description.includes("try catch")) {
+  code = `
+    try {
+      let result = riskyOperation();
+      console.log("Result:", result);
+    } catch (error) {
+      console.error("Error occurred:", error.message);
+    }
+  `;
+  generated = true;
+} else if (description.includes("switch")) {
+  code = `
+    let day = 3;
+    switch (day) {
+      case 1:
+        console.log("Monday");
+        break;
+      case 2:
+        console.log("Tuesday");
+        break;
+      default:
+        console.log("Another day");
+    }
+  `;
+  generated = true;
+} else if (description.includes("map")) {
+  code = `
+    let numbers = [1, 2, 3];
+    let doubled = numbers.map(num => num * 2);
+    console.log("Doubled:", doubled);
+  `;
+  generated = true;
+} else if (description.includes("filter")) {
+  code = `
+    let numbers = [1, 2, 3, 4, 5];
+    let evenNumbers = numbers.filter(num => num % 2 === 0);
+    console.log("Even Numbers:", evenNumbers);
+  `;
+  generated = true;
+} else if (description.includes("reduce")) {
+  code = `
+    let numbers = [1, 2, 3];
+    let sum = numbers.reduce((total, num) => total + num, 0);
+    console.log("Sum:", sum);
+  `;
+  generated = true;
+}
+      }
+
+      // If no matching code template found
+      if (!generated) {
+        output.textContent = "Sorry, I cannot generate your code try using Chatgpt";
+      } else {
+        output.textContent = code;
+      }
+    });
+  </script>
+</body>
+</html>
